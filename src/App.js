@@ -25,7 +25,14 @@ const App = () => {
     setIsTaskModalVisible(true);
     setSelectedTask(task);
   };
-
+  const onHandlerCloseAddModal = () => {
+    setIsAddModalVisible(!isAddModalVisible);
+    setTask({
+      title: "",
+      description: "",
+      done: false,
+    });
+  };
   const onRequestCloseModal = () => {
     setSelectedTask(null);
     setIsTaskModalVisible(!isTaskModalVisible);
@@ -48,6 +55,11 @@ const App = () => {
   const onAddingHandler = () => {
     setTasks([...tasks, { ...task, id: Math.random().toString() }]);
     setIsAddModalVisible(!isAddModalVisible);
+    setTask({
+      title: "",
+      description: "",
+      done: false,
+    });
   };
   return (
     <View style={styles.container}>
@@ -59,13 +71,13 @@ const App = () => {
       <AddTaskModal
         isAddModalVisible={isAddModalVisible}
         setIsAddModalVisible={setIsAddModalVisible}
+        onHandlerCloseAddModal={onHandlerCloseAddModal}
         task={task}
         onHandlerChange={onHandlerChange}
         onAddingHandler={onAddingHandler}
       />
       <TaskModal
         isTaskModalVisible={isTaskModalVisible}
-        setIsTaskModalVisible={setIsTaskModalVisible}
         onRequestCloseModal={onRequestCloseModal}
         onHandlerDelete={onHandlerDelete}
         onHandlerTask={onHandlerTask}
